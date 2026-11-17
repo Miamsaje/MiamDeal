@@ -11,13 +11,13 @@ export default async function Favoris() {
   const offres = [...trierOffres(toutes, "ephemere"), ...trierOffres(toutes, "permanente")];
   return (
     <>
-      <h1 className="font-titre text-3xl font-extrabold">Mes favoris ❤️</h1>
-      <p className="text-sm text-black/60">
+      <h1 className="titre text-[2rem] sm:text-5xl">Mes favoris</h1>
+      <p className="mt-1 text-doux">
         Enregistrés sur cet appareil, sans compte. Les offres terminées disparaissent toutes seules.
       </p>
       <ListeFavoris ids={offres.map((o) => o.id)}>
-        {offres.map((o) => (
-          <CarteOffre key={o.id} offre={o} />
+        {offres.map((o, i) => (
+          <CarteOffre key={o.id} offre={o} index={i} />
         ))}
       </ListeFavoris>
     </>

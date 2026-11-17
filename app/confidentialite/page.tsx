@@ -5,10 +5,10 @@ export const metadata: Metadata = { title: "Confidentialité" };
 export default function Confidentialite() {
   return (
     <article className="flex flex-col gap-4">
-      <h1 className="font-titre text-3xl font-extrabold">Politique de confidentialité</h1>
+      <h1 className="titre text-3xl">Politique de confidentialité</h1>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">En bref</h2>
+        <h2 className="titre text-xl">En bref</h2>
         <p>
           MiamDeal se consulte librement, sans compte. Nous ne te demandons aucune donnée
           personnelle et nous n&apos;utilisons ni publicité ciblée ni traceur de mesure
@@ -17,7 +17,7 @@ export default function Confidentialite() {
       </section>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">Données collectées</h2>
+        <h2 className="titre text-xl">Données collectées</h2>
         <p>
           Comme tout site web, notre hébergeur (Vercel) traite des données techniques nécessaires
           à l&apos;affichage des pages et à la sécurité du service (adresse IP, type de
@@ -26,7 +26,7 @@ export default function Confidentialite() {
       </section>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">Favoris et signalements</h2>
+        <h2 className="titre text-xl">Favoris et signalements</h2>
         <p>
           Tes favoris sont enregistrés uniquement dans ton navigateur : ils ne nous sont jamais
           envoyés et tu peux les effacer en vidant les données du site. Si tu signales une offre,
@@ -36,7 +36,7 @@ export default function Confidentialite() {
       </section>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">Cookies</h2>
+        <h2 className="titre text-xl">Cookies</h2>
         <p>
           Le site public ne dépose aucun cookie. Seul l&apos;espace réservé à l&apos;équipe
           MiamDeal utilise un cookie de session, strictement nécessaire à la connexion.
@@ -44,7 +44,7 @@ export default function Confidentialite() {
       </section>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">Liens externes</h2>
+        <h2 className="titre text-xl">Liens externes</h2>
         <p>
           Les fiches renvoient vers les sites des restaurants et vers Google Maps. Ces sites ont
           leurs propres politiques de confidentialité.
@@ -52,7 +52,7 @@ export default function Confidentialite() {
       </section>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">Tes droits</h2>
+        <h2 className="titre text-xl">Tes droits</h2>
         <p>
           Conformément au RGPD, tu peux nous écrire pour toute question ou demande concernant tes
           données : [À COMPLÉTER : e-mail de contact]. Tu peux aussi adresser une réclamation à la

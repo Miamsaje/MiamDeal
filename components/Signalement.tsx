@@ -22,7 +22,7 @@ export default function Signalement({ offreId, etat }: { offreId: string; etat?:
         </p>
       )}
       {!retour?.ok && (
-        <details className="mt-2 rounded-2xl border border-black/10 bg-white p-3 text-sm">
+        <details className="mt-6 rounded-3xl border border-trait bg-white p-4 text-sm">
           <summary className="cursor-pointer font-semibold">
             🚩 Cette offre n&apos;est plus valable ? Dis-le-nous
           </summary>

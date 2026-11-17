@@ -26,7 +26,7 @@ export default async function AdminRestaurants({
         </p>
       )}
       <div className="flex items-center justify-between gap-2">
-        <h1 className="font-titre text-2xl font-extrabold">Restaurants ({restaurants.length})</h1>
+        <h1 className="titre text-2xl">Restaurants ({restaurants.length})</h1>
         <Link href="/admin/restaurants/nouveau" className="bouton">
           + Nouveau resto
         </Link>
@@ -37,14 +37,14 @@ export default async function AdminRestaurants({
           return (
             <li
               key={r.id}
-              className={`rounded-2xl border border-black/10 bg-white p-3 ${
+              className={`rounded-3xl border border-trait bg-white p-3 ${
                 r.archive ? "opacity-70" : ""
               }`}
             >
               <p className="font-bold">
-                {r.nom} {r.archive && <span className="text-xs text-black/50">(archivé)</span>}
+                {r.nom} {r.archive && <span className="text-xs text-doux">(archivé)</span>}
               </p>
-              <p className="text-sm text-black/60">
+              <p className="text-sm text-doux">
                 {[LIBELLE_TYPE[r.type], r.cuisine, r.quartier].filter(Boolean).join(" · ")} · {nb}{" "}
                 {nb > 1 ? "offres" : "offre"}
               </p>

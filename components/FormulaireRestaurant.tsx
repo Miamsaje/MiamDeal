@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { enregistrerRestaurant } from "@/app/admin/actions";
+import { CUISINES } from "@/lib/cuisines";
 import type { Restaurant } from "@/lib/types";
 
 export default function FormulaireRestaurant({
@@ -12,7 +13,7 @@ export default function FormulaireRestaurant({
   const r = restaurant;
   return (
     <form action={enregistrerRestaurant} className="flex flex-col gap-3">
-      <h1 className="font-titre text-2xl font-extrabold">
+      <h1 className="titre text-2xl">
         {r ? `Modifier ${r.nom}` : "Nouveau restaurant"}
       </h1>
       {erreur && (
@@ -35,12 +36,20 @@ export default function FormulaireRestaurant({
       </label>
       <label className="etiquette">
         Cuisine
-        <input name="cuisine" defaultValue={r?.cuisine ?? ""} placeholder="Italien, burgers…" className="champ" />
+        <input name="cuisine" list="cuisines" defaultValue={r?.cuisine ?? ""} placeholder="Italien, burgers…" className="champ" />
+        <datalist id="cuisines">
+          {CUISINES.map((c) => (
+            <option key={c.cle} value={c.libelle} />
+          ))}
+        </datalist>
+        <span className="text-xs font-normal text-doux">
+          L&apos;icône est choisie d&apos;après ce mot (burger 🍔, sushi 🍣, pizza 🍕…).
+        </span>
       </label>
       <label className="etiquette">
         Quartier *
         <input name="quartier" required defaultValue={r?.quartier} placeholder="Oberkampf, Châtelet…" className="champ" />
-        <span className="text-xs font-normal text-black/60">
+        <span className="text-xs font-normal text-doux">
           Écris-le toujours de la même façon : il sert de filtre sur l&apos;accueil.
         </span>
       </label>

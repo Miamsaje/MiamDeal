@@ -16,7 +16,7 @@ export default function FormulaireOffre({
   const o = offre;
   return (
     <form action={enregistrerOffre} className="flex flex-col gap-3">
-      <h1 className="font-titre text-2xl font-extrabold">
+      <h1 className="titre text-2xl">
         {o ? "Modifier l'offre" : "Nouvelle offre"}
       </h1>
       {erreur && (
@@ -78,7 +78,7 @@ export default function FormulaireOffre({
             </option>
           ))}
         </select>
-        <span className="text-xs font-normal text-black/60">
+        <span className="text-xs font-normal text-doux">
           Seules les offres « Publiée » sont visibles sur le site.
         </span>
       </label>

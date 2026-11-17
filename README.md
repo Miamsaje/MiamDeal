@@ -78,10 +78,18 @@ git remote add origin https://github.com/TON-COMPTE/miamdeal.git && git push -u 
 
 ## À personnaliser
 
-- **Logo** : remplace `public/logo.svg` par ton dragon. Si ton fichier est un PNG,
-  dépose-le en `public/logo.png` et change `/logo.svg` en `/logo.png` dans `app/layout.tsx`.
-  Remplace aussi `app/icon.svg` (icône de l'onglet).
-- **Couleurs** : en haut de `app/globals.css` (`--color-miam` = le jaune).
+- **Logo** : `public/logo.png` (en-tête), `public/dragon.png` (bannière d'accueil),
+  `app/icon.png` et `app/apple-icon.png` (icône d'onglet et d'iPhone),
+  `public/icon-*.png` (application installée) et `assets/logo-og.png` (image de partage).
+- **Couleurs** : en haut de `app/globals.css` (`--color-miam` = jaune vif,
+  `--color-miam-clair` = jaune clair, `--color-encre` = brun du logo).
+- **Typo** : les titres utilisent Archivo extra-gras italique (gratuite, Google Fonts),
+  proche de la typo fournie. Pour la vraie typo, si tu as acheté la licence web :
+  dépose ses fichiers `.woff2` dans `app/fonts/` et remplace `Archivo(...)` dans
+  `app/layout.tsx` par `localFont({ src: "./fonts/ta-typo.woff2", variable: "--font-titre" })`
+  (import : `import localFont from "next/font/local"`).
+- **Icônes de cuisine** : `lib/cuisines.ts` (emoji + mots-clés reconnus dans le champ
+  « cuisine » du resto).
 - **Mentions légales et confidentialité** : complète les passages `[À COMPLÉTER]` dans
   `app/mentions-legales/page.tsx` et `app/confidentialite/page.tsx`.
 

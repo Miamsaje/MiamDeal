@@ -13,8 +13,8 @@ export default async function Connexion({
 
   if (!supabaseConfigure) {
     return (
-      <div className="rounded-2xl border border-black/10 bg-white p-5">
-        <h1 className="font-titre text-2xl font-extrabold">Espace équipe</h1>
+      <div className="rounded-3xl border border-trait bg-white p-5">
+        <h1 className="titre text-2xl">Espace équipe</h1>
         <p className="mt-2">
           Supabase n&apos;est pas encore configuré. Crée le fichier <code>.env.local</code> (voir
           le README) pour activer l&apos;espace admin.
@@ -24,9 +24,9 @@ export default async function Connexion({
   }
 
   return (
-    <form action={seConnecter} className="mx-auto max-w-sm rounded-2xl border border-black/10 bg-white p-5">
-      <h1 className="font-titre text-2xl font-extrabold">Espace équipe 🐉</h1>
-      <p className="text-sm text-black/60">Réservé à l&apos;équipe MiamDeal.</p>
+    <form action={seConnecter} className="mx-auto max-w-sm rounded-3xl border border-trait bg-white p-5">
+      <h1 className="titre text-2xl">Espace équipe 🐉</h1>
+      <p className="text-sm text-doux">Réservé à l&apos;équipe MiamDeal.</p>
       {erreur && (
         <p role="alert" className="mt-3 rounded-xl bg-red-100 p-3 text-sm font-semibold text-red-800">
           {erreur}

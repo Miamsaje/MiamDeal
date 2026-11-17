@@ -3,12 +3,13 @@
 export default function Erreur({ reset }: { error: Error; reset: () => void }) {
   return (
     <div className="py-10 text-center">
-      <p className="text-5xl">🐉💨</p>
-      <h1 className="mt-3 font-titre text-2xl font-extrabold">Le dragon a eu un hoquet</h1>
-      <p className="mt-1 text-black/60">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/icon-192.png" alt="" className="anim-croque mx-auto h-24 w-24 rounded-3xl" />
+      <h1 className="titre mt-4 text-3xl">Le dragon a eu un hoquet</h1>
+      <p className="mt-2 text-doux">
         Impossible de charger les offres pour le moment. Réessaie dans un instant.
       </p>
-      <button onClick={reset} className="bouton mt-5">
+      <button onClick={reset} className="bouton mt-6">
         Réessayer
       </button>
     </div>

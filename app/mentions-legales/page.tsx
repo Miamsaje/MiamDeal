@@ -5,10 +5,10 @@ export const metadata: Metadata = { title: "Mentions légales" };
 export default function MentionsLegales() {
   return (
     <article className="flex flex-col gap-4">
-      <h1 className="font-titre text-3xl font-extrabold">Mentions légales</h1>
+      <h1 className="titre text-3xl">Mentions légales</h1>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">Éditeur du site</h2>
+        <h2 className="titre text-xl">Éditeur du site</h2>
         <p>
           MiamDeal — [À COMPLÉTER : nom ou raison sociale, statut juridique]
           <br />
@@ -21,7 +21,7 @@ export default function MentionsLegales() {
       </section>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">Hébergement</h2>
+        <h2 className="titre text-xl">Hébergement</h2>
         <p>
           Site hébergé par Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis —
           vercel.com.
@@ -31,7 +31,7 @@ export default function MentionsLegales() {
       </section>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">Offres présentées</h2>
+        <h2 className="titre text-xl">Offres présentées</h2>
         <p>
           MiamDeal recense des bons plans proposés par des restaurants à Paris. Les offres sont
           vérifiées par l&apos;équipe à la date indiquée sur chaque fiche, mais elles restent sous
@@ -42,7 +42,7 @@ export default function MentionsLegales() {
       </section>
 
       <section>
-        <h2 className="font-titre text-xl font-bold">Propriété intellectuelle</h2>
+        <h2 className="titre text-xl">Propriété intellectuelle</h2>
         <p>
           Le nom MiamDeal, le logo et les contenus du site sont protégés. Les noms et marques des
           restaurants cités appartiennent à leurs propriétaires respectifs. Un restaurant qui

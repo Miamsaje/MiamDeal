@@ -28,8 +28,8 @@ export default function CompteARebours({ fin }: { fin: string }) {
   return (
     <span
       suppressHydrationWarning
-      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold tabular-nums ${
-        urgent ? "bg-red-100 text-red-700" : "bg-orange-100 text-orange-800"
+      className={`badge tabular-nums ${
+        urgent ? "anim-urgent bg-red-50 text-red-600" : "bg-miam-clair text-encre"
       }`}
     >
       ⏳ {texte(reste)}

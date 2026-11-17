@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <>
       <div className="mb-3 flex items-center justify-between gap-2">
-        <Link href="/admin" className="font-titre text-xl font-extrabold">
+        <Link href="/admin" className="titre text-xl">
           🛠️ Admin
         </Link>
         <div className="flex gap-2">

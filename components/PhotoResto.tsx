@@ -1,12 +1,15 @@
+import { iconeCuisine } from "@/lib/cuisines";
 import type { Restaurant } from "@/lib/types";
 
-/** Photo du resto, ou une vignette jaune avec son initiale s'il n'y en a pas. */
+/** Photo du resto, ou une vignette jaune clair avec l'icône de sa cuisine. */
 export default function PhotoResto({
   restaurant,
   className = "",
+  grande = false,
 }: {
-  restaurant: Pick<Restaurant, "nom" | "photo_url">;
+  restaurant: Pick<Restaurant, "nom" | "photo_url" | "cuisine">;
   className?: string;
+  grande?: boolean;
 }) {
   if (restaurant.photo_url) {
     return (
@@ -15,16 +18,18 @@ export default function PhotoResto({
         src={restaurant.photo_url}
         alt={`Photo de ${restaurant.nom}`}
         loading="lazy"
-        className={`object-cover ${className}`}
+        className={`bg-miam-pale object-cover ${className}`}
       />
     );
   }
   return (
     <div
       aria-hidden
-      className={`flex items-center justify-center bg-miam-clair font-titre text-4xl font-extrabold text-miam-fonce ${className}`}
+      className={`flex items-center justify-center bg-gradient-to-br from-miam-clair to-miam-pale ${
+        grande ? "text-7xl" : "text-5xl"
+      } ${className}`}
     >
-      {restaurant.nom.charAt(0).toUpperCase()}
+      <span className="drop-shadow-sm">{iconeCuisine(restaurant.cuisine)}</span>
     </div>
   );
 }

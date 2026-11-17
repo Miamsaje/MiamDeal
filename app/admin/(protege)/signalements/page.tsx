@@ -30,20 +30,20 @@ export default async function AdminSignalements({
           {erreur}
         </p>
       )}
-      <h1 className="font-titre text-2xl font-extrabold">Signalements</h1>
-      <p className="text-sm text-black/60">
+      <h1 className="titre text-2xl">Signalements</h1>
+      <p className="text-sm text-doux">
         Envoyés par les visiteurs depuis la page d&apos;une offre.
       </p>
       {signalements.length === 0 && (
-        <p className="mt-6 text-center text-sm text-black/60">Aucun signalement. Tout roule ! 🐉</p>
+        <p className="mt-6 text-center text-sm text-doux">Aucun signalement. Tout roule ! 🐉</p>
       )}
       <ul className="mt-3 flex flex-col gap-2">
         {signalements.map((s) => (
           <li
             key={s.id}
-            className={`rounded-2xl border border-black/10 bg-white p-3 ${s.traite ? "opacity-60" : ""}`}
+            className={`rounded-3xl border border-trait bg-white p-3 ${s.traite ? "opacity-60" : ""}`}
           >
-            <p className="text-xs font-bold uppercase text-black/50">
+            <p className="text-xs font-bold uppercase text-doux">
               {formaterDateHeure(s.created_at)} · {s.offre?.restaurant?.nom}
             </p>
             <p className="font-bold">{s.offre?.titre}</p>

@@ -1,5 +1,7 @@
 // Lecture des données pour les pages publiques.
 import { cache } from "react";
+import { AUTRE, categorieCuisine, CUISINES } from "./cuisines";
+import { normaliser } from "./texte";
 import { OFFRES_DEMO, RESTOS_DEMO } from "./demo";
 import { clientPublic } from "./supabase/public";
 import { supabaseConfigure } from "./supabase/config";
@@ -30,15 +32,9 @@ export const offresActives = cache(async (): Promise<OffreComplete[]> => {
   return data as OffreComplete[];
 });
 
-/** Minuscules sans accents, pour une recherche tolérante. */
-export const normaliser = (s: string) =>
-  s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .trim();
+export { normaliser };
 
-export type Filtres = { quartier?: string; type?: TypeResto; q?: string };
+export type Filtres = { quartier?: string; type?: TypeResto; q?: string; cuisine?: string };
 
 export function filtrerOffres(offres: OffreComplete[], filtres: Filtres) {
   const mots = normaliser(filtres.q ?? "")
@@ -47,6 +43,8 @@ export function filtrerOffres(offres: OffreComplete[], filtres: Filtres) {
   return offres.filter((o) => {
     if (filtres.quartier && o.restaurant.quartier !== filtres.quartier) return false;
     if (filtres.type && o.restaurant.type !== filtres.type) return false;
+    if (filtres.cuisine && categorieCuisine(o.restaurant.cuisine).cle !== filtres.cuisine)
+      return false;
     if (mots.length === 0) return true;
     const texte = normaliser(
       [o.titre, o.description, o.restaurant.nom, o.restaurant.cuisine, o.restaurant.quartier]
@@ -68,6 +66,12 @@ export function trierOffres(offres: OffreComplete[], categorie: Categorie) {
           ? (a.date_fin ?? "").localeCompare(b.date_fin ?? "")
           : b.created_at.localeCompare(a.created_at)),
     );
+}
+
+/** Catégories de cuisine présentes parmi les offres, dans l'ordre de la liste. */
+export function cuisinesDe(offres: OffreComplete[]) {
+  const presentes = new Set(offres.map((o) => categorieCuisine(o.restaurant.cuisine).cle));
+  return [...CUISINES, AUTRE].filter((c) => presentes.has(c.cle));
 }
 
 export function quartiersDe(offres: OffreComplete[]) {

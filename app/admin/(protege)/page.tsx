@@ -80,7 +80,7 @@ export default async function AdminOffres({
       )}
 
       <div className="flex items-center justify-between gap-2">
-        <h1 className="font-titre text-2xl font-extrabold">Offres</h1>
+        <h1 className="titre text-2xl">Offres</h1>
         {(nbRestos ?? 0) > 0 ? (
           <Link href="/admin/offres/nouvelle" className="bouton">
             + Nouvelle offre
@@ -105,7 +105,7 @@ export default async function AdminOffres({
                   ? "border-miam-fonce bg-miam"
                   : alerte
                     ? "border-orange-300 bg-orange-50 text-orange-800"
-                    : "border-black/15 bg-white hover:bg-miam-clair"
+                    : "border-trait bg-white hover:bg-miam-clair"
               }`}
             >
               {v.libelle} · {n}
@@ -128,24 +128,24 @@ export default async function AdminOffres({
       </form>
 
       {visibles.length === 0 && (
-        <p className="mt-6 text-center text-sm text-black/60">Aucune offre dans cette vue.</p>
+        <p className="mt-6 text-center text-sm text-doux">Aucune offre dans cette vue.</p>
       )}
       <ul className="mt-3 flex flex-col gap-2">
         {visibles.map((o) => (
           <li
             key={o.id}
-            className={`rounded-2xl border border-black/10 bg-white p-3 ${
+            className={`rounded-3xl border border-trait bg-white p-3 ${
               o.statut === "archivee" || expiree(o) ? "opacity-70" : ""
             }`}
           >
-            <p className="text-xs font-bold uppercase text-black/50">
+            <p className="text-xs font-bold uppercase text-doux">
               {o.restaurant?.nom}
               {o.restaurant?.archive && " (resto archivé)"} ·{" "}
               {o.categorie === "ephemere" ? "Éphémère" : "Permanente"}
             </p>
             <p className="font-bold">
               {o.coup_de_coeur && "🐉 "}
-              {o.titre} {o.prix && <span className="text-black/60">· {o.prix}</span>}
+              {o.titre} {o.prix && <span className="text-doux">· {o.prix}</span>}
             </p>
             <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs font-bold">
               <span className={`rounded-full px-2 py-0.5 ${COULEUR_STATUT[o.statut]}`}>
@@ -162,7 +162,7 @@ export default async function AdminOffres({
               )}
               <span
                 className={`rounded-full px-2 py-0.5 ${
-                  aReverifier(o) ? "bg-orange-100 text-orange-800" : "bg-gray-100 text-black/60"
+                  aReverifier(o) ? "bg-orange-100 text-orange-800" : "bg-gray-100 text-doux"
                 }`}
               >
                 {o.verifiee_le ? `Vérifiée le ${formaterDate(o.verifiee_le)}` : "Jamais vérifiée"}

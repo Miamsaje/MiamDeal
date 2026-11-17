@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Logo provisoire : remplace ce fichier par le vrai logo dragon -->
-  <circle cx="32" cy="32" r="30" fill="#1f1a0e"/>
-  <text x="32" y="44" font-size="34" text-anchor="middle">🐉</text>
-</svg>

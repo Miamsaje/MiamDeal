@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { offreParId } from "@/lib/donnees";
 
@@ -5,6 +7,8 @@ import { offreParId } from "@/lib/donnees";
 export const alt = "Bon plan MiamDeal";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+const logo = `data:image/png;base64,${await readFile(join(process.cwd(), "assets/logo-og.png"), "base64")}`;
 
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const offre = await offreParId((await params).id);
@@ -15,43 +19,38 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          background: "#ffc800",
-          color: "#1f1a0e",
-          padding: 64,
+          background: "#ffffff",
+          color: "#2b1a10",
         }}
       >
-        <div style={{ display: "flex", fontSize: 44, fontWeight: 700 }}>MiamDeal</div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", fontSize: 76, fontWeight: 700, lineHeight: 1.1 }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 64, flex: 1 }}>
+          <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#7a6a5d" }}>
+            {offre ? `${offre.restaurant.nom} · ${offre.restaurant.quartier}` : "Paris"}
+          </div>
+          <div style={{ display: "flex", fontSize: 74, fontWeight: 800, lineHeight: 1.08 }}>
             {offre?.titre ?? "Les bons plans restos à Paris"}
           </div>
-          {offre && (
-            <div style={{ display: "flex", fontSize: 40, marginTop: 20 }}>
-              {offre.restaurant.nom} · {offre.restaurant.quartier}
-            </div>
-          )}
-        </div>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           {offre?.prix ? (
             <div
               style={{
                 display: "flex",
-                background: "#1f1a0e",
-                color: "#ffc800",
+                alignSelf: "flex-start",
+                background: "#ffc800",
                 fontSize: 64,
-                fontWeight: 700,
-                padding: "12px 36px",
+                fontWeight: 800,
+                padding: "10px 34px",
                 borderRadius: 28,
               }}
             >
               {offre.prix}
             </div>
           ) : (
-            <div />
+            <div style={{ display: "flex", fontSize: 34 }}>Manger bien, payer moins.</div>
           )}
-          <div style={{ display: "flex", fontSize: 32 }}>Manger bien, payer moins.</div>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 420, background: "#fff4c7" }}>
+          {/* eslint-disable-next-line jsx-a11y/alt-text */}
+          <img src={logo} width={340} height={243} />
         </div>
       </div>
     ),

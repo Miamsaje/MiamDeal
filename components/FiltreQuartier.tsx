@@ -6,27 +6,32 @@ export default function FiltreQuartier({ quartiers }: { quartiers: string[] }) {
   const router = useRouter();
   const chemin = usePathname();
   const params = useSearchParams();
+  const valeur = params.get("quartier") ?? "";
 
   return (
-    <label className="flex items-center gap-2 text-sm font-semibold">
-      <span className="sr-only sm:not-sr-only">Quartier</span>
+    <label className="relative block shrink-0">
+      <span className="sr-only">Quartier</span>
       <select
-        value={params.get("quartier") ?? ""}
+        value={valeur}
         onChange={(e) => {
           const suivants = new URLSearchParams(params);
           if (e.target.value) suivants.set("quartier", e.target.value);
           else suivants.delete("quartier");
+          suivants.delete("n");
           router.push(`${chemin}?${suivants}`, { scroll: false });
         }}
-        className="w-full rounded-full border border-black/15 bg-white px-3 py-2 text-sm font-semibold"
+        className={`puce appearance-none pr-8 ${valeur ? "puce-active" : "puce-inactive"}`}
       >
         <option value="">📍 Tous les quartiers</option>
         {quartiers.map((q) => (
           <option key={q} value={q}>
-            {q}
+            📍 {q}
           </option>
         ))}
       </select>
+      <span aria-hidden className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs">
+        ▾
+      </span>
     </label>
   );
 }

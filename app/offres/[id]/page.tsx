@@ -7,6 +7,7 @@ import BoutonPartager from "@/components/BoutonPartager";
 import CompteARebours from "@/components/CompteARebours";
 import PhotoResto from "@/components/PhotoResto";
 import Signalement from "@/components/Signalement";
+import { categorieCuisine } from "@/lib/cuisines";
 import { estFuture, formaterDateHeure } from "@/lib/dates";
 import { offreParId } from "@/lib/donnees";
 import { AUTEUR_PAR_DEFAUT, LIBELLE_TYPE } from "@/lib/types";
@@ -35,90 +36,112 @@ export default async function PageOffre({ params, searchParams }: Props) {
   if (!offre) notFound();
   const { signalement } = await searchParams;
   const r = offre.restaurant;
+  const cuisine = categorieCuisine(r.cuisine);
   const aVenir = Boolean(offre.date_debut && estFuture(offre.date_debut));
 
   return (
-    <article>
+    <article className="anim-apparition">
       <div className="flex items-center gap-2">
-        <Link href="/" className="mr-auto text-sm font-semibold underline">
-          ← Toutes les offres
+        <Link href="/" className="bouton-discret mr-auto">
+          ← Bons plans
         </Link>
         <BoutonPartager titre={`${offre.titre} chez ${r.nom}`} />
         <BoutonFavori id={offre.id} />
       </div>
 
-      <PhotoResto restaurant={r} className="mt-3 h-48 w-full rounded-2xl sm:h-64" />
-
-      <p className="mt-4 text-sm font-bold uppercase tracking-wide text-black/50">
-        {offre.categorie === "ephemere" ? "⏳ Offre éphémère" : "🍽️ Offre permanente"}
-      </p>
-      <div className="mt-1 flex items-start justify-between gap-3">
-        <h1 className="font-titre text-3xl font-extrabold leading-tight">{offre.titre}</h1>
-        <BadgePrix prix={offre.prix} grand />
+      <div className="relative mt-3">
+        <PhotoResto restaurant={r} grande className="h-52 w-full rounded-3xl sm:h-72" />
+        {offre.coup_de_coeur && (
+          <span className="badge absolute left-3 top-3 bg-miam px-3 py-1 text-sm text-encre shadow">
+            🐉 Coup de cœur de l&apos;équipe
+          </span>
+        )}
       </div>
 
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {offre.coup_de_coeur && (
-          <span className="rounded-full bg-miam px-2 py-0.5 text-xs font-bold">🐉 Coup de cœur</span>
-        )}
+      <div className="mt-5 flex flex-wrap items-center gap-1.5">
+        <span className="badge bg-miam-clair text-encre">
+          {offre.categorie === "ephemere" ? "⏳ Offre éphémère" : "🍽️ Offre permanente"}
+        </span>
         {aVenir && (
-          <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-bold text-blue-800">
-            🗓️ Pas encore commencée
-          </span>
+          <span className="badge bg-sky-50 text-sky-700">🗓️ Pas encore commencée</span>
         )}
         {offre.date_fin && !aVenir && <CompteARebours fin={offre.date_fin} />}
         <BadgeVerifie date={offre.verifiee_le} />
       </div>
 
-      {offre.date_fin && (
-        <p className="mt-3 text-sm">
-          {offre.date_debut && <>Du {formaterDateHeure(offre.date_debut)} </>}
-          {offre.date_debut ? "au" : "Jusqu'au"} <strong>{formaterDateHeure(offre.date_fin)}</strong>
-        </p>
+      <h1 className="titre mt-3 text-[2rem] sm:text-5xl">{offre.titre}</h1>
+      <p className="mt-2 text-doux">
+        <span aria-hidden>{cuisine.icone}</span>{" "}
+        <Link href={`/restaurants/${r.id}`} className="font-bold text-encre hover:underline">
+          {r.nom}
+        </Link>{" "}
+        · {r.quartier}
+      </p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <BadgePrix prix={offre.prix} grand />
+        {offre.date_fin && (
+          <p className="text-sm text-doux">
+            {offre.date_debut && <>Du {formaterDateHeure(offre.date_debut)} </>}
+            {offre.date_debut ? "au" : "Jusqu'au"}{" "}
+            <strong className="text-encre">{formaterDateHeure(offre.date_fin)}</strong>
+          </p>
+        )}
+      </div>
+
+      {offre.description && (
+        <p className="mt-5 whitespace-pre-line text-[17px] leading-relaxed">{offre.description}</p>
       )}
 
-      {offre.description && <p className="mt-4 whitespace-pre-line">{offre.description}</p>}
-
       {offre.conditions && (
-        <section className="mt-4 rounded-2xl bg-miam-clair p-4">
-          <h2 className="font-titre text-lg font-bold">Conditions</h2>
-          <p className="whitespace-pre-line text-sm">{offre.conditions}</p>
+        <section className="mt-5 rounded-3xl border border-miam/50 bg-miam-pale p-4">
+          <h2 className="text-sm font-extrabold uppercase tracking-wide">📋 Conditions</h2>
+          <p className="mt-1 whitespace-pre-line">{offre.conditions}</p>
         </section>
       )}
 
-      <section className="mt-4 rounded-2xl border border-black/10 bg-white p-4">
-        <h2 className="font-titre text-xl font-bold">
-          <Link href={`/restaurants/${r.id}`} className="underline decoration-miam decoration-4">
-            {r.nom}
-          </Link>
-        </h2>
-        <p className="text-sm text-black/60">
-          {[LIBELLE_TYPE[r.type], r.cuisine, r.quartier].filter(Boolean).join(" · ")}
-        </p>
-        {r.adresse && <p className="mt-1 text-sm">{r.adresse}</p>}
-        <div className="mt-3 flex flex-wrap gap-2">
-          {r.lien_carte && (
-            <a href={r.lien_carte} target="_blank" rel="noopener noreferrer" className="bouton">
-              Voir la carte officielle
-            </a>
-          )}
-          {r.lien_maps && (
-            <a
-              href={r.lien_maps}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bouton-discret !px-5 !py-2.5 !text-base"
-            >
-              📍 Y aller
-            </a>
-          )}
+      <section className="mt-4 flex gap-4 rounded-3xl border border-trait bg-white p-4">
+        <PhotoResto restaurant={r} className="h-20 w-20 shrink-0 rounded-2xl !text-4xl" />
+        <div className="min-w-0 flex-1">
+          <h2 className="text-lg font-extrabold">
+            <Link href={`/restaurants/${r.id}`} className="hover:underline">
+              {r.nom}
+            </Link>
+          </h2>
+          <p className="text-sm text-doux">
+            {[LIBELLE_TYPE[r.type], r.cuisine].filter(Boolean).join(" · ")}
+          </p>
+          {r.adresse && <p className="mt-0.5 text-sm">{r.adresse}</p>}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {r.lien_carte && (
+              <a href={r.lien_carte} target="_blank" rel="noopener noreferrer" className="bouton">
+                Voir la carte
+              </a>
+            )}
+            {r.lien_maps && (
+              <a
+                href={r.lien_maps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bouton-discret !px-5 !py-2.5 !text-base"
+              >
+                📍 Y aller
+              </a>
+            )}
+          </div>
         </div>
       </section>
 
-      <p className="mt-4 text-xs text-black/50">
-        Publiée par <strong>{offre.auteur?.nom_affiche ?? AUTEUR_PAR_DEFAUT}</strong>
-        {offre.source && <> · Source : {offre.source}</>}
-        <br />
+      <div className="mt-5 flex items-center gap-2 text-sm text-doux">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/icon-192.png" alt="" className="h-8 w-8 rounded-full border border-trait" />
+        <p>
+          Publié par{" "}
+          <strong className="text-encre">{offre.auteur?.nom_affiche ?? AUTEUR_PAR_DEFAUT}</strong>
+          {offre.source && <> · Source : {offre.source}</>}
+        </p>
+      </div>
+      <p className="mt-2 text-xs text-doux">
         Les offres peuvent changer sans préavis : vérifie auprès du restaurant avant de te déplacer.
       </p>
 

@@ -15,14 +15,14 @@ export default function NavAdmin({ signalements }: { signalements: number }) {
     },
   ];
   return (
-    <nav aria-label="Sections de l'admin" className="mb-4 flex gap-1 overflow-x-auto rounded-full border border-black/10 bg-white p-1">
+    <nav aria-label="Sections de l'admin" className="mb-4 flex gap-1 overflow-x-auto rounded-full border border-trait bg-white p-1">
       {liens.map((l) => (
         <Link
           key={l.href}
           href={l.href}
           aria-current={l.actif ? "page" : undefined}
           className={`flex-1 whitespace-nowrap rounded-full px-3 py-2 text-center text-sm font-bold ${
-            l.actif ? "bg-encre text-white" : "hover:bg-miam-clair"
+            l.actif ? "bg-miam" : "text-doux hover:bg-miam-pale hover:text-encre"
           }`}
         >
           {l.libelle}

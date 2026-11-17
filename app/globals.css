@@ -1,11 +1,14 @@
 @import "tailwindcss";
 
+/* ---------- Charte MiamDeal : blanc + touches de jaune ---------- */
 @theme inline {
-  --color-miam: #ffc800;
-  --color-miam-fonce: #e6ac00;
-  --color-miam-clair: #fff3bf;
-  --color-creme: #fffbea;
-  --color-encre: #1f1a0e;
+  --color-miam: #ffc800; /* jaune vif du dragon : prix, boutons */
+  --color-miam-fonce: #f0b400;
+  --color-miam-clair: #fff4c7; /* touches de jaune clair */
+  --color-miam-pale: #fffbea;
+  --color-encre: #2b1a10; /* brun foncé du logo */
+  --color-doux: #7a6a5d; /* texte secondaire */
+  --color-trait: #efe8da; /* bordures */
   --font-sans: var(--font-corps);
   --font-titre: var(--font-titre);
 }
@@ -15,20 +18,135 @@ html {
 }
 
 body {
-  background: var(--color-creme);
+  background: #ffffff;
   color: var(--color-encre);
 }
 
-/* Styles partagés des formulaires de l'admin */
+/* Titres : gras, italique, un peu large (inspiré de la typo fournie) */
+.titre {
+  font-family: var(--font-titre);
+  font-style: italic;
+  font-weight: 900;
+  font-stretch: 110%;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+@layer components {
+  /* Formulaires et boutons (dans un calque pour pouvoir les ajuster avec des utilitaires) */
 .champ {
-  @apply mt-1 w-full rounded-xl border border-black/15 bg-white px-3 py-2 text-base outline-none focus:border-miam-fonce focus:ring-2 focus:ring-miam/50;
+  @apply mt-1 w-full rounded-2xl border border-trait bg-white px-4 py-2.5 text-base outline-none transition focus:border-miam-fonce focus:ring-4 focus:ring-miam/25;
 }
 .etiquette {
   @apply block text-sm font-semibold;
 }
 .bouton {
-  @apply inline-flex items-center justify-center rounded-full bg-miam px-5 py-2.5 font-bold text-encre shadow-sm transition hover:bg-miam-fonce;
+  @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-miam px-5 py-2.5 font-bold text-encre shadow-[0_2px_0_0_var(--color-miam-fonce)] transition hover:-translate-y-px hover:bg-[#ffd21f] active:translate-y-px active:shadow-none;
 }
 .bouton-discret {
-  @apply inline-flex items-center justify-center rounded-full border border-black/15 bg-white px-3 py-1.5 text-sm font-semibold transition hover:bg-miam-clair;
+  @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-trait bg-white px-3.5 py-1.5 text-sm font-semibold transition hover:border-miam hover:bg-miam-pale active:scale-95;
+}
+.puce {
+  @apply inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-semibold transition active:scale-95;
+}
+.puce-active {
+  @apply border-miam bg-miam-clair;
+}
+.puce-inactive {
+  @apply border-trait bg-white hover:border-miam hover:bg-miam-pale;
+}
+.badge {
+  @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold;
+}
+
+}
+
+/* ---------- Petites animations ---------- */
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes flotte {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1.5deg);
+  }
+}
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.35);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes croque {
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  25% {
+    transform: rotate(-6deg) scale(1.04);
+  }
+  75% {
+    transform: rotate(6deg) scale(0.97);
+  }
+}
+@keyframes pulse-doux {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.anim-apparition {
+  animation: apparition 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+.anim-flotte {
+  animation: flotte 4s ease-in-out infinite;
+}
+.anim-pop {
+  animation: pop 0.45s ease-out;
+}
+.anim-croque {
+  animation: croque 0.9s ease-in-out infinite;
+}
+.anim-urgent {
+  animation: pulse-doux 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* masque la barre de défilement des rangées de filtres */
+.sans-barre {
+  scrollbar-width: none;
+}
+.sans-barre::-webkit-scrollbar {
+  display: none;
 }
