@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-miam: #ffc800;
+  --color-miam-fonce: #e6ac00;
+  --color-miam-clair: #fff3bf;
+  --color-creme: #fffbea;
+  --color-encre: #1f1a0e;
+  --font-sans: var(--font-corps);
+  --font-titre: var(--font-titre);
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-creme);
+  color: var(--color-encre);
+}
+
+/* Styles partagés des formulaires de l'admin */
+.champ {
+  @apply mt-1 w-full rounded-xl border border-black/15 bg-white px-3 py-2 text-base outline-none focus:border-miam-fonce focus:ring-2 focus:ring-miam/50;
+}
+.etiquette {
+  @apply block text-sm font-semibold;
+}
+.bouton {
+  @apply inline-flex items-center justify-center rounded-full bg-miam px-5 py-2.5 font-bold text-encre shadow-sm transition hover:bg-miam-fonce;
+}
+.bouton-discret {
+  @apply inline-flex items-center justify-center rounded-full border border-black/15 bg-white px-3 py-1.5 text-sm font-semibold transition hover:bg-miam-clair;
+}
